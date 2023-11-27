@@ -14,10 +14,17 @@
    let totalOverpayment = 0;
 
    for (let i = 1; i <= term; i++) {
-    let loanRepayment = Math.round((creditBodyInMonth + (sum * mRate) / 100) * 100) / 100;
-    totalOverpayment = Math.round((totalOverpayment + (loanRepayment - creditBodyInMonth)) * 100) / 100;
+    let interestPayment = Math.round((sum * mRate) / 100 * 100) / 100;
+    let loanRepayment = Math.round((creditBodyInMonth + interestPayment) * 100) / 100;
+    totalOverpayment = Math.round((totalOverpayment + interestPayment) * 100) / 100;
     sum = Math.round((sum - creditBodyInMonth) * 100) / 100;
-    console.log(`#${i} loan repayment: ${loanRepayment} sum: ${sum}`);
-   }
+
+    if (i === term && sum !== 0) {
+      creditBodyInMonth = creditBodyInMonth + sum;
+      loanRepayment = loanRepayment + sum;
+      sum = 0;
+    }
+    console.log(`#${i} Платеж(в месяц): ${loanRepayment} грн. Тело: ${creditBodyInMonth} грн, Проценты: ${interestPayment} %, Остаток долга: ${sum} грн`);
+}
 
    console.log(`Переплата по кредиту: ${totalOverpayment} грн`);
