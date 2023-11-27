@@ -20,9 +20,9 @@
     sum = Math.round((sum - creditBodyInMonth) * 100) / 100;
 
     if (i === term && sum !== 0) {
+      sum = 0;
       creditBodyInMonth = creditBodyInMonth + sum;
       loanRepayment = loanRepayment + sum;
-      sum = 0;
     }
     console.log(`#${i} Платеж(в месяц): ${loanRepayment} грн. Тело: ${creditBodyInMonth} грн, Проценты: ${interestPayment} %, Остаток долга: ${sum} грн`);
 }
